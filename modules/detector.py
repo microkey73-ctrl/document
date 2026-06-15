@@ -13,3 +13,5 @@ def find_document_contour(edge):
             return approx
 
     return None
+
+이미지 에서 문서처럼 보이는 사각형 영역을 찾아주는 함수 코드
