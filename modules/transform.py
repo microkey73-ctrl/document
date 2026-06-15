@@ -16,7 +16,6 @@ def warp_perspective(img, pts):
     heightB = np.linalg.norm(tl - bl)
     maxHeight = max(int(heightA), int(heightB))
 
-    # [개선 3] 문서 가장자리 글씨가 잘리는 것을 방지하기 위해 사방에 10픽셀 마진 부여
     margin = 10
     dst = np.array([
         [margin, margin],
@@ -35,10 +34,8 @@ def get_scanned_effect(warped_img):
     """ 영수증/문서 스캔 느낌을 내는 전처리 """
     gray = cv2.cvtColor(warped_img, cv2.COLOR_BGR2GRAY)
 
-    # [개선 4] 이진화 전 미세한 가우시안 블러로 글씨 외곽선 노이즈 제거
     gray = cv2.GaussianBlur(gray, (3, 3), 0)
 
-    # [개선 5] BlockSize를 25로 늘리고, C값을 5로 낮춰서 글씨가 파묻히지 않고 두껍게 나오도록 수정
     scanned = cv2.adaptiveThreshold(
         gray, 255,
         cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
@@ -47,3 +44,7 @@ def get_scanned_effect(warped_img):
         5
     )
     return scanned
+
+문서를 스캔처럼 만드는 파일
+무선 펴기 + 스캔 효과 
+기울어진 문서를 정면으로 펴고 흑백 + 이진화 해서 스캔 느낌 살리기 
