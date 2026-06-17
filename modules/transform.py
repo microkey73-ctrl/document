@@ -7,7 +7,6 @@ def warp_perspective(img, pts):
     rect = order_points(pts)
     (tl, tr, br, bl) = rect
 
-    # 가로, 세로 길이 계산 (유클리드 거리)
     widthA = np.linalg.norm(br - bl)
     widthB = np.linalg.norm(tr - tl)
     maxWidth = max(int(widthA), int(widthB))
@@ -31,7 +30,7 @@ def warp_perspective(img, pts):
 
 
 def get_scanned_effect(warped_img):
-    """ 영수증/문서 스캔 느낌을 내는 전처리 """
+
     gray = cv2.cvtColor(warped_img, cv2.COLOR_BGR2GRAY)
 
     gray = cv2.GaussianBlur(gray, (3, 3), 0)
